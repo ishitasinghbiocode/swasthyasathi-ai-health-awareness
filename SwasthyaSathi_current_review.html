@@ -1,0 +1,521 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#f5f8f2">
+<title>SwasthyaSathi AI | Health Awareness for Everyone</title>
+<style>
+:root{--green:#216b4b;--dark:#153d2e;--mint:#e4f2e8;--cream:#f7f8f2;--white:#fff;--text:#24352c;--muted:#66766b;--border:#dce7dc;--orange:#fff1db;--red:#a92e35}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:85px}
+body{margin:0;background:var(--cream);color:var(--text);font-family:Arial,Helvetica,sans-serif;line-height:1.65}
+a{color:var(--green)}
+button,input,textarea,select{font:inherit}
+button{cursor:pointer}
+.nav{position:sticky;top:0;z-index:10;background:#fffffff2;backdrop-filter:blur(12px);border-bottom:1px solid var(--border)}
+.nav-inner{max-width:1150px;margin:auto;padding:13px 22px;display:flex;align-items:center;justify-content:space-between;gap:18px}
+.brand{text-decoration:none;color:var(--dark);font-size:21px;font-weight:800;white-space:nowrap}
+.brand-icon{display:inline-grid;place-items:center;background:var(--green);color:white;width:32px;height:32px;border-radius:10px;margin-right:7px}
+.nav-links{display:flex;gap:17px;flex-wrap:wrap}
+.nav-links a{text-decoration:none;color:var(--text);font-size:13px;font-weight:700}
+.nav-links a:hover{color:var(--green)}
+.lang-btn,.menu-btn{border:1px solid var(--border);border-radius:10px;padding:8px 12px;background:white;color:var(--green);font-weight:bold}
+.menu-btn{display:none}
+.wrap{width:min(1080px,92%);margin:auto}
+.hero{padding:72px 0 58px;background:linear-gradient(135deg,#e8f3e9,#f8f8ef 70%)}
+.hero-grid{display:grid;grid-template-columns:1.25fr .75fr;gap:40px;align-items:center}
+.eyebrow,.pill{display:inline-block;background:#d7ebdc;color:var(--green);padding:6px 12px;border-radius:50px;font-size:12px;font-weight:800;letter-spacing:.4px}
+h1{font-size:clamp(36px,5.5vw,59px);line-height:1.08;letter-spacing:-1.8px;color:var(--dark);margin:19px 0}
+h1 span{color:var(--green)}
+.lead{font-size:17px;color:#52675a;max-width:630px}
+.actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:25px}
+.btn{display:inline-block;border:0;border-radius:12px;padding:12px 18px;background:var(--green);color:white;text-decoration:none;font-weight:700}
+.btn:hover{filter:brightness(.94)}
+.btn.secondary{background:white;border:1px solid var(--border);color:var(--green)}
+.hero-card,.card,.feature,.source-card,.claim-card,.quiz-box,.chat-box{background:white;border:1px solid var(--border);border-radius:20px;padding:23px;box-shadow:0 7px 24px #1d513b09}
+.hero-card{padding:29px}
+.hero-art{font-size:53px;background:var(--mint);height:95px;width:95px;display:grid;place-items:center;border-radius:26px;margin-bottom:17px}
+.hero-card h3{color:var(--dark);font-size:22px;margin:0 0 8px}
+.hero-card p{color:var(--muted);font-size:14px}
+.stat-row{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:20px}
+.stat{background:var(--cream);padding:12px;border-radius:12px;text-align:center}
+.stat strong{display:block;color:var(--green);font-size:19px}
+.stat small{font-size:11px;color:var(--muted)}
+.notice{border-left:4px solid #d5a247;background:var(--orange);padding:14px 17px;border-radius:10px;font-size:13px}
+.section{padding:66px 0}
+.section.alt{background:#edf4ed}
+.section-head{display:flex;justify-content:space-between;align-items:end;gap:25px;margin-bottom:28px}
+.section-head>div{max-width:650px}
+.kicker{color:var(--green);font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:1.6px}
+h2{font-size:clamp(27px,3.7vw,38px);line-height:1.2;color:var(--dark);letter-spacing:-.6px;margin:8px 0 10px}
+.section-head p{max-width:430px;color:var(--muted);font-size:14px}
+.feature-grid,.library-grid,.source-grid,.claim-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:17px}
+.feature-icon{font-size:28px}
+.feature h3,.card h3,.source-card h3,.claim-card h3{color:var(--dark);margin:10px 0 7px}
+.feature p,.card p,.source-card p,.claim-card p{color:var(--muted);font-size:14px}
+.tag{font-size:11px;color:var(--green);background:var(--mint);padding:5px 9px;border-radius:20px;font-weight:700}
+.library-grid{grid-template-columns:repeat(3,1fr)}
+.library-card{padding:20px;background:white;border:1px solid var(--border);border-radius:16px}
+.library-card .emoji{font-size:27px}
+.library-card h3{margin:7px 0;color:var(--dark)}
+.library-card p{font-size:13px;color:var(--muted)}
+.library-card a{font-size:13px;font-weight:bold}
+.chat-layout{display:grid;grid-template-columns:.72fr 1.28fr;gap:23px;align-items:start}
+.chat-intro{padding:24px;background:var(--dark);border-radius:20px;color:white}
+.chat-intro h3{font-size:24px;line-height:1.2}
+.chat-intro p,.chat-intro li{font-size:13px;color:#e0eee4}
+.chat-intro ul{padding-left:20px}
+.chat-box{padding:0;overflow:hidden}
+.chat-header{padding:18px 20px;background:var(--mint);border-bottom:1px solid var(--border)}
+.chat-header strong{color:var(--dark)}
+.chat-header small{display:block;color:var(--muted)}
+.quick-prompts{display:flex;gap:7px;flex-wrap:wrap;padding:13px 16px 0}
+.quick-prompts button{background:#f1f6f0;border:1px solid var(--border);color:var(--green);border-radius:20px;padding:7px 10px;font-size:12px}
+.messages{padding:16px;height:310px;overflow-y:auto;display:flex;flex-direction:column;gap:12px}
+.message{padding:12px 14px;border-radius:14px;max-width:94%;font-size:14px;overflow-wrap:anywhere}
+.message.bot{align-self:flex-start;background:#eff5ed;border:1px solid #e0e9dc}
+.message.user{align-self:flex-end;background:var(--green);color:white}
+.message ul{padding-left:20px}
+.message a{overflow-wrap:anywhere}
+.chat-form{display:flex;gap:9px;padding:13px;border-top:1px solid var(--border)}
+.chat-form input{flex:1;min-width:0;border:1px solid var(--border);border-radius:11px;padding:12px}
+.chat-form button{border:0;background:var(--green);color:white;border-radius:11px;padding:0 17px;font-weight:bold}
+.small-note{font-size:11px;color:var(--muted);padding:0 16px 15px}
+.claim-grid{grid-template-columns:repeat(2,1fr)}
+.claim-card{padding:22px}
+.claim-label{font-size:11px;font-weight:800;color:#8a5a14;background:#fff0d3;padding:5px 9px;border-radius:20px}
+.claim-card select,.claim-card textarea,.quiz-box select{width:100%;padding:11px;border:1px solid var(--border);border-radius:10px;background:white;margin:8px 0}
+.result{display:none;padding:14px;background:#edf5ec;border-radius:12px;margin-top:12px;font-size:14px}
+.quiz-box{max-width:720px}
+.quiz-question{font-weight:700;color:var(--dark);margin:18px 0 7px}
+.quiz-box label{display:block;padding:7px 0;font-size:14px}
+.quiz-box input{margin-right:8px}
+#quizResult{margin-top:15px;font-weight:bold;color:var(--green)}
+.source-grid{grid-template-columns:repeat(3,1fr)}
+.source-card a{font-weight:bold;font-size:13px}
+footer{background:var(--dark);color:#e4efe6;padding:34px 0}
+footer a{color:#bce6c8}
+.footer-row{display:flex;justify-content:space-between;gap:25px;flex-wrap:wrap}
+footer p{font-size:12px;color:#c1d4c7;max-width:700px}
+.hidden{display:none!important}
+@media(max-width:850px){
+.nav-links{display:none;position:absolute;top:63px;left:0;right:0;padding:18px;background:white;border-bottom:1px solid var(--border);flex-direction:column}
+.nav-links.open{display:flex}.menu-btn{display:inline-block}
+.hero-grid,.chat-layout{grid-template-columns:1fr}
+.feature-grid,.library-grid,.source-grid{grid-template-columns:repeat(2,1fr)}
+}
+@media(max-width:560px){
+.hero{padding:45px 0}.section{padding:47px 0}.section-head{display:block}
+.feature-grid,.library-grid,.source-grid,.claim-grid{grid-template-columns:1fr}
+.stat-row{gap:6px}.stat{padding:9px 4px}.messages{height:340px}
+.brand{font-size:18px}.nav-inner{padding:10px 4%}
+}
+</style>
+</head>
+<body>
+
+<header class="nav">
+ <div class="nav-inner">
+  <a class="brand" href="#home"><span class="brand-icon">✚</span>SwasthyaSathi <span style="color:var(--green)">AI</span></a>
+  <nav class="nav-links" id="navLinks">
+   <a href="#about" data-en="About" data-hi="परिचय">About</a>
+   <a href="#library" data-en="Health Library" data-hi="स्वास्थ्य जानकारी">Health Library</a>
+   <a href="#chatbot" data-en="Health Guide" data-hi="स्वास्थ्य सहायक">Health Guide</a>
+   <a href="#claims" data-en="Check a Claim" data-hi="दावे की जाँच">Check a Claim</a>
+   <a href="#quiz" data-en="Learn & Test" data-hi="सीखें और जाँचें">Learn & Test</a>
+   <a href="#sources" data-en="Trusted Sources" data-hi="विश्वसनीय स्रोत">Trusted Sources</a>
+  </nav>
+  <div style="display:flex;gap:7px">
+   <button class="lang-btn" id="langToggle">हिंदी</button>
+   <button class="menu-btn" id="menuBtn" aria-label="Open navigation">☰</button>
+  </div>
+ </div>
+</header>
+
+<main>
+<section class="hero" id="home">
+ <div class="wrap hero-grid">
+  <div>
+   <span class="eyebrow" data-en="✦ HEALTH KNOWLEDGE FOR EVERY COMMUNITY" data-hi="✦ हर समुदाय के लिए स्वास्थ्य जानकारी">✦ HEALTH KNOWLEDGE FOR EVERY COMMUNITY</span>
+   <h1 data-en-html="Better health decisions start with <span>better information.</span>" data-hi-html="बेहतर स्वास्थ्य निर्णय शुरू होते हैं <span>सही जानकारी से।</span>">Better health decisions start with <span>better information.</span></h1>
+   <p class="lead" data-en="A bilingual health-awareness website that helps people explore public-health information, think critically about online claims, and find trustworthy sources." data-hi="एक द्विभाषी स्वास्थ्य-जागरूकता वेबसाइट, जो स्वास्थ्य संबंधी जानकारी समझने, ऑनलाइन दावों को परखने और विश्वसनीय स्रोत खोजने में मदद करती है।">A bilingual health-awareness website that helps people explore public-health information, think critically about online claims, and find trustworthy sources.</p>
+   <div class="actions">
+    <a class="btn" href="#chatbot" data-en="Ask the Health Guide →" data-hi="स्वास्थ्य सहायक से पूछें →">Ask the Health Guide →</a>
+    <a class="btn secondary" href="#library" data-en="Explore Health Library" data-hi="स्वास्थ्य लाइब्रेरी देखें">Explore Health Library</a>
+   </div>
+   <p style="font-size:12px;color:var(--muted)" data-en="Hindi + English · Source-linked · Designed for health awareness" data-hi="हिंदी + अंग्रेज़ी · स्रोतों के लिंक · स्वास्थ्य जागरूकता के लिए">Hindi + English · Source-linked · Designed for health awareness</p>
+  </div>
+  <aside class="hero-card">
+   <div class="hero-art">🌿</div>
+   <span class="pill" data-en="OUR PURPOSE" data-hi="हमारा उद्देश्य">OUR PURPOSE</span>
+   <h3 data-en="Understand. Verify. Act safely." data-hi="समझें। जाँचें। सुरक्षित कदम उठाएँ।">Understand. Verify. Act safely.</h3>
+   <p data-en="Health information should be understandable, responsible, and connected to reliable sources." data-hi="स्वास्थ्य संबंधी जानकारी सरल, जिम्मेदार और विश्वसनीय स्रोतों से जुड़ी होनी चाहिए।">Health information should be understandable, responsible, and connected to reliable sources.</p>
+   <div class="stat-row">
+    <div class="stat"><strong>02</strong><small data-en="Languages" data-hi="भाषाएँ">Languages</small></div>
+    <div class="stat"><strong>24/7*</strong><small data-en="Self-guided" data-hi="स्वयं जानकारी">Self-guided</small></div>
+    <div class="stat"><strong>0</strong><small data-en="Diagnoses" data-hi="निदान नहीं">Diagnoses</small></div>
+   </div>
+   <p style="font-size:10px" data-en="*The local demo can be opened anytime; it is not a medical emergency service." data-hi="*यह डेमो कभी भी खोला जा सकता है; यह आपातकालीन चिकित्सा सेवा नहीं है।">*The local demo can be opened anytime; it is not a medical emergency service.</p>
+  </aside>
+ </div>
+</section>
+
+<section class="section" id="about">
+ <div class="wrap">
+  <div class="section-head"><div><div class="kicker" data-en="THE IDEA" data-hi="हमारा विचार">THE IDEA</div><h2 data-en="Health literacy should be easy to access." data-hi="स्वास्थ्य संबंधी सही जानकारी तक पहुँचना आसान होना चाहिए।">Health literacy should be easy to access.</h2></div><p data-en="SwasthyaSathi AI is a proposed digital companion for health awareness—not a replacement for doctors, public-health workers, or verified medical services." data-hi="SwasthyaSathi AI स्वास्थ्य-जागरूकता के लिए प्रस्तावित डिजिटल साथी है—यह डॉक्टरों, स्वास्थ्यकर्मियों या प्रमाणित चिकित्सा सेवाओं का विकल्प नहीं है।">SwasthyaSathi AI is a proposed digital companion for health awareness—not a replacement for doctors, public-health workers, or verified medical services.</p></div>
+  <div class="feature-grid">
+   <article class="feature"><div class="feature-icon">📚</div><h3 data-en="Simple health library" data-hi="आसान स्वास्थ्य लाइब्रेरी">Simple health library</h3><p data-en="Short introductions to public-health topics with links to established sources." data-hi="सार्वजनिक स्वास्थ्य विषयों की संक्षिप्त जानकारी और विश्वसनीय स्रोतों के लिंक।">Short introductions to public-health topics with links to established sources.</p></article>
+   <article class="feature"><div class="feature-icon">🔎</div><h3 data-en="Claim explorer" data-hi="दावे को समझें">Claim explorer</h3><p data-en="Practice asking who made a claim, what evidence is offered, and whether a reliable source supports it." data-hi="दावा किसने किया, क्या प्रमाण है और क्या विश्वसनीय स्रोत उसका समर्थन करता है—यह जाँचना सीखें।">Practice asking who made a claim, what evidence is offered, and whether a reliable source supports it.</p></article>
+   <article class="feature"><div class="feature-icon">💬</div><h3 data-en="Guided health awareness" data-hi="स्वास्थ्य जागरूकता सहायक">Guided health awareness</h3><p data-en="Explore general information, basic self-care and warning signs without receiving a diagnosis." data-hi="बिना निदान के सामान्य जानकारी, बुनियादी देखभाल और चेतावनी के संकेत समझें।">Explore general information, basic self-care and warning signs without receiving a diagnosis.</p></article>
+  </div>
+  <div class="notice" style="margin-top:22px" data-en="Important: This demonstration provides general educational information only. It cannot examine you, confirm a cause, or replace a qualified healthcare professional." data-hi="महत्वपूर्ण: यह डेमो केवल सामान्य शैक्षिक जानकारी देता है। यह आपकी जाँच, बीमारी के कारण की पुष्टि या योग्य स्वास्थ्य विशेषज्ञ का विकल्प नहीं है।">Important: This demonstration provides general educational information only. It cannot examine you, confirm a cause, or replace a qualified healthcare professional.</div>
+ </div>
+</section>
+
+<section class="section alt" id="library">
+ <div class="wrap">
+  <div class="section-head"><div><div class="kicker" data-en="EXPLORE AND LEARN" data-hi="जानें और समझें">EXPLORE AND LEARN</div><h2 data-en="Health Library" data-hi="स्वास्थ्य लाइब्रेरी">Health Library</h2></div><p data-en="Start with a topic, then use the trusted links to read more." data-hi="किसी विषय से शुरुआत करें और आगे पढ़ने के लिए विश्वसनीय लिंक देखें।">Start with a topic, then use the trusted links to read more.</p></div>
+  <div class="library-grid">
+   <article class="library-card"><div class="emoji">🧼</div><h3 data-en="Everyday hygiene" data-hi="रोज़मर्रा की स्वच्छता">Everyday hygiene</h3><p data-en="Handwashing, safe water, and practical ways to reduce the spread of germs." data-hi="हाथ धोना, सुरक्षित पानी और संक्रमण फैलने की संभावना कम करने के उपाय।">Handwashing, safe water, and practical ways to reduce the spread of germs.</p><a href="https://www.who.int/health-topics" target="_blank" rel="noopener" data-en="Explore WHO topics ↗" data-hi="WHO विषय देखें ↗">Explore WHO topics ↗</a></article>
+   <article class="library-card"><div class="emoji">💉</div><h3 data-en="Vaccines" data-hi="टीकाकरण">Vaccines</h3><p data-en="Learn why vaccination programmes are part of public-health prevention." data-hi="जानें कि टीकाकरण कार्यक्रम सार्वजनिक स्वास्थ्य में क्यों महत्वपूर्ण हैं।">Learn why vaccination programmes are part of public-health prevention.</p><a href="https://www.who.int/health-topics/vaccines-and-immunization" target="_blank" rel="noopener" data-en="WHO vaccine information ↗" data-hi="WHO टीका जानकारी ↗">WHO vaccine information ↗</a></article>
+   <article class="library-card"><div class="emoji">🥗</div><h3 data-en="Healthy eating" data-hi="स्वस्थ खान-पान">Healthy eating</h3><p data-en="Understand balanced diets, food variety, and general healthy-eating guidance." data-hi="संतुलित आहार, भोजन में विविधता और सामान्य स्वस्थ खान-पान समझें।">Understand balanced diets, food variety, and general healthy-eating guidance.</p><a href="https://www.who.int/news-room/fact-sheets/detail/healthy-diet" target="_blank" rel="noopener" data-en="WHO healthy diet ↗" data-hi="WHO स्वस्थ आहार ↗">WHO healthy diet ↗</a></article>
+   <article class="library-card"><div class="emoji">🏃</div><h3 data-en="Physical activity" data-hi="शारीरिक गतिविधि">Physical activity</h3><p data-en="Explore how movement can support general health and well-being." data-hi="जानें कि शारीरिक गतिविधि सामान्य स्वास्थ्य और कल्याण में कैसे मदद कर सकती है।">Explore how movement can support general health and well-being.</p><a href="https://www.who.int/news-room/fact-sheets/detail/physical-activity" target="_blank" rel="noopener" data-en="WHO activity guidance ↗" data-hi="WHO गतिविधि जानकारी ↗">WHO activity guidance ↗</a></article>
+   <article class="library-card"><div class="emoji">🧠</div><h3 data-en="Mental well-being" data-hi="मानसिक स्वास्थ्य">Mental well-being</h3><p data-en="Learn about mental health and why reaching out for support matters." data-hi="मानसिक स्वास्थ्य और सहायता लेने के महत्व के बारे में जानें।">Learn about mental health and why reaching out for support matters.</p><a href="https://www.who.int/health-topics/mental-health" target="_blank" rel="noopener" data-en="WHO mental health ↗" data-hi="WHO मानसिक स्वास्थ्य ↗">WHO mental health ↗</a></article>
+   <article class="library-card"><div class="emoji">🇮🇳</div><h3 data-en="Health in India" data-hi="भारत में स्वास्थ्य">Health in India</h3><p data-en="Find Indian public-health information and official health programme resources." data-hi="भारतीय सार्वजनिक स्वास्थ्य जानकारी और आधिकारिक स्वास्थ्य कार्यक्रमों के स्रोत देखें।">Find Indian public-health information and official health programme resources.</p><a href="https://mohfw.gov.in/" target="_blank" rel="noopener" data-en="Ministry of Health & Family Welfare ↗" data-hi="स्वास्थ्य एवं परिवार कल्याण मंत्रालय ↗">Ministry of Health & Family Welfare ↗</a></article>
+  </div>
+ </div>
+</section>
+
+<section class="section" id="chatbot">
+ <div class="wrap">
+  <div class="section-head"><div><div class="kicker" data-en="YOUR HEALTH-AWARENESS COMPANION" data-hi="आपका स्वास्थ्य-जागरूकता साथी">YOUR HEALTH-AWARENESS COMPANION</div><h2 data-en="Ask the Health Guide" data-hi="स्वास्थ्य सहायक से पूछें">Ask the Health Guide</h2></div><p data-en="Explore common symptoms and public-health questions in simple language." data-hi="सामान्य लक्षणों और सार्वजनिक स्वास्थ्य से जुड़े प्रश्नों को आसान भाषा में समझें।">Explore common symptoms and public-health questions in simple language.</p></div>
+  <div class="chat-layout">
+   <aside class="chat-intro">
+    <div style="font-size:34px">🌱</div>
+    <h3 data-en="A helpful first step—not a diagnosis." data-hi="पहला मददगार कदम—निदान नहीं।">A helpful first step—not a diagnosis.</h3>
+    <p data-en="Choose a common topic or describe your question. The guide shares general educational information and trusted sources." data-hi="कोई सामान्य विषय चुनें या अपना प्रश्न लिखें। यह सहायक सामान्य शैक्षिक जानकारी और विश्वसनीय स्रोत साझा करता है।">Choose a common topic or describe your question. The guide shares general educational information and trusted sources.</p>
+    <ul>
+     <li data-en="General possible explanations" data-hi="संभावित सामान्य कारण">General possible explanations</li>
+     <li data-en="Low-risk self-care guidance" data-hi="कम जोखिम वाली स्वयं-देखभाल">Low-risk self-care guidance</li>
+     <li data-en="Warning signs to act on" data-hi="ध्यान देने योग्य चेतावनी संकेत">Warning signs to act on</li>
+     <li data-en="Links to trusted sources" data-hi="विश्वसनीय स्रोतों के लिंक">Links to trusted sources</li>
+    </ul>
+    <div style="border-top:1px solid #456957;padding-top:12px;font-size:12px" data-en="Emergency? Do not wait for this chatbot. In India, call 112 for emergency assistance." data-hi="आपात स्थिति? चैटबॉट का इंतज़ार न करें। भारत में आपातकालीन सहायता के लिए 112 पर कॉल करें।">Emergency? Do not wait for this chatbot. In India, call 112 for emergency assistance.</div>
+   </aside>
+   <div class="chat-box">
+    <div class="chat-header"><strong data-en="SwasthyaSathi Health Guide" data-hi="SwasthyaSathi स्वास्थ्य सहायक">SwasthyaSathi Health Guide</strong><small data-en="Curated responses · English / Hindi" data-hi="चयनित जानकारी · अंग्रेज़ी / हिंदी">Curated responses · English / Hindi</small></div>
+    <div class="quick-prompts">
+     <button data-question="fever" data-en="Fever" data-hi="बुखार">Fever</button>
+     <button data-question="headache" data-en="Headache" data-hi="सिरदर्द">Headache</button>
+     <button data-question="cough" data-en="Cough" data-hi="खाँसी">Cough</button>
+     <button data-question="vomiting" data-en="Nausea / vomiting" data-hi="मतली / उल्टी">Nausea / vomiting</button>
+     <button data-question="stomach" data-en="Stomach pain" data-hi="पेट दर्द">Stomach pain</button>
+     <button data-question="misinformation" data-en="Health misinformation" data-hi="स्वास्थ्य भ्रामक जानकारी">Health misinformation</button>
+    </div>
+    <div class="messages" id="messages" aria-live="polite">
+     <div class="message bot" data-en="Hello! I can share general health-awareness information about common symptoms, safe self-care, warning signs, and trusted sources. What would you like to know?" data-hi="नमस्ते! मैं सामान्य लक्षणों, सुरक्षित स्वयं-देखभाल, चेतावनी संकेतों और विश्वसनीय स्रोतों के बारे में सामान्य जानकारी दे सकता हूँ। आप क्या जानना चाहेंगे?">Hello! I can share general health-awareness information about common symptoms, safe self-care, warning signs, and trusted sources. What would you like to know?</div>
+    </div>
+    <form class="chat-form" id="chatForm">
+     <input id="chatInput" autocomplete="off" required maxlength="500" placeholder="Ask about a common symptom or health topic…" aria-label="Your health question">
+     <button type="submit" data-en="Ask ↑" data-hi="पूछें ↑">Ask ↑</button>
+    </form>
+    <div class="small-note" data-en="Demo only: answers are prewritten, not generated by a live AI. No diagnosis or medication doses." data-hi="केवल डेमो: उत्तर पहले से लिखे गए हैं, लाइव AI द्वारा नहीं बनाए जाते। निदान या दवा की खुराक नहीं दी जाती।">Demo only: answers are prewritten, not generated by a live AI. No diagnosis or medication doses.</div>
+   </div>
+  </div>
+ </div>
+</section>
+
+<section class="section alt" id="claims">
+ <div class="wrap">
+  <div class="section-head"><div><div class="kicker" data-en="PAUSE BEFORE YOU SHARE" data-hi="साझा करने से पहले रुकें">PAUSE BEFORE YOU SHARE</div><h2 data-en="Health Claim Explorer" data-hi="स्वास्थ्य दावे को समझें">Health Claim Explorer</h2></div><p data-en="Practise checking health messages. A viral post or confident statement is not proof." data-hi="स्वास्थ्य संदेशों की जाँच करना सीखें। वायरल पोस्ट या आत्मविश्वास से कही गई बात प्रमाण नहीं है।">Practise checking health messages. A viral post or confident statement is not proof.</p></div>
+  <div class="claim-grid">
+   <article class="claim-card">
+    <span class="claim-label" data-en="EXAMPLE 01" data-hi="उदाहरण 01">EXAMPLE 01</span>
+    <h3 data-en="“A natural product is always safe because it is natural.”" data-hi="“प्राकृतिक उत्पाद हमेशा सुरक्षित होता है क्योंकि वह प्राकृतिक है।”">“A natural product is always safe because it is natural.”</h3>
+    <p data-en="Is this claim reliable?" data-hi="क्या यह दावा विश्वसनीय है?">Is this claim reliable?</p>
+    <select id="claim1" aria-label="Answer for claim one">
+     <option value="" data-en="Choose your answer" data-hi="अपना उत्तर चुनें">Choose your answer</option>
+     <option value="yes" data-en="Yes, natural always means safe" data-hi="हाँ, प्राकृतिक हमेशा सुरक्षित है">Yes, natural always means safe</option>
+     <option value="no" data-en="No, safety depends on the product and evidence" data-hi="नहीं, सुरक्षा उत्पाद और प्रमाण पर निर्भर है">No, safety depends on the product and evidence</option>
+    </select>
+    <button class="btn" onclick="checkClaim(1)" data-en="Check answer" data-hi="उत्तर जाँचें">Check answer</button>
+    <div class="result" id="claimResult1" data-en="Correct: natural does not automatically mean safe. Ingredients, dose, interactions, and quality can matter. Check reliable evidence and consult a qualified professional before using a product for treatment." data-hi="सही: प्राकृतिक होने का अर्थ अपने-आप सुरक्षित होना नहीं है। सामग्री, मात्रा, दूसरी दवाओं से प्रतिक्रिया और गुणवत्ता मायने रख सकते हैं। उपचार के लिए उत्पाद लेने से पहले विश्वसनीय प्रमाण देखें और योग्य विशेषज्ञ से सलाह लें।">Correct: natural does not automatically mean safe. Ingredients, dose, interactions, and quality can matter. Check reliable evidence and consult a qualified professional before using a product for treatment.</div>
+   </article>
+   <article class="claim-card">
+    <span class="claim-label" data-en="EXAMPLE 02" data-hi="उदाहरण 02">EXAMPLE 02</span>
+    <h3 data-en="“A message forwarded many times must be medically correct.”" data-hi="“कई बार फॉरवर्ड किया गया संदेश चिकित्सा की दृष्टि से सही ही होगा।”">“A message forwarded many times must be medically correct.”</h3>
+    <p data-en="What should you do?" data-hi="आपको क्या करना चाहिए?">What should you do?</p>
+    <select id="claim2" aria-label="Answer for claim two">
+     <option value="" data-en="Choose your answer" data-hi="अपना उत्तर चुनें">Choose your answer</option>
+     <option value="yes" data-en="Forward it immediately" data-hi="इसे तुरंत आगे भेजें">Forward it immediately</option>
+     <option value="no" data-en="Check the original source and supporting evidence" data-hi="मूल स्रोत और प्रमाण जाँचें">Check the original source and supporting evidence</option>
+    </select>
+    <button class="btn" onclick="checkClaim(2)" data-en="Check answer" data-hi="उत्तर जाँचें">Check answer</button>
+    <div class="result" id="claimResult2" data-en="Correct: popularity is not proof. Look for the original source, publication date, evidence, and agreement with reliable public-health organisations. If uncertain, do not share it as fact." data-hi="सही: लोकप्रियता प्रमाण नहीं है। मूल स्रोत, प्रकाशन की तारीख, प्रमाण और विश्वसनीय सार्वजनिक स्वास्थ्य संस्थाओं की जानकारी से तुलना करें। संदेह हो तो इसे तथ्य बताकर साझा न करें।">Correct: popularity is not proof. Look for the original source, publication date, evidence, and agreement with reliable public-health organisations. If uncertain, do not share it as fact.</div>
+   </article>
+  </div>
+  <div class="card" style="margin-top:17px">
+   <h3 data-en="Check a claim you have seen" data-hi="देखे गए किसी दावे की जाँच करें">Check a claim you have seen</h3>
+   <p data-en="Enter a claim to create a verification checklist. This demo does not automatically fact-check user-submitted claims." data-hi="जाँच की सूची बनाने के लिए कोई दावा लिखें। यह डेमो उपयोगकर्ता के दावों की स्वतः तथ्य-जाँच नहीं करता।">Enter a claim to create a verification checklist. This demo does not automatically fact-check user-submitted claims.</p>
+   <textarea id="customClaim" rows="3" maxlength="1000" placeholder="Paste or type a health claim here…"></textarea>
+   <button class="btn" onclick="reviewClaim()" data-en="Build my checklist" data-hi="जाँच सूची बनाएँ">Build my checklist</button>
+   <div class="result" id="customClaimResult"></div>
+  </div>
+ </div>
+</section>
+
+<section class="section" id="quiz">
+ <div class="wrap">
+  <div class="section-head"><div><div class="kicker" data-en="LEARN BY PRACTISING" data-hi="अभ्यास से सीखें">LEARN BY PRACTISING</div><h2 data-en="Health Literacy Quiz" data-hi="स्वास्थ्य जानकारी क्विज़">Health Literacy Quiz</h2></div><p data-en="Test your ability to evaluate health information and choose safer next steps." data-hi="स्वास्थ्य जानकारी परखने और सुरक्षित कदम चुनने की अपनी क्षमता जाँचें।">Test your ability to evaluate health information and choose safer next steps.</p></div>
+  <div class="quiz-box">
+   <form id="quizForm">
+    <div class="quiz-question" data-en="1. Which is the best first step when you see a surprising health claim?" data-hi="1. कोई चौंकाने वाला स्वास्थ्य दावा दिखे तो सबसे अच्छा पहला कदम क्या है?">1. Which is the best first step when you see a surprising health claim?</div>
+    <label><input type="radio" name="q1" value="a"> <span data-en="Forward it to everyone" data-hi="इसे सबको भेज दें">Forward it to everyone</span></label>
+    <label><input type="radio" name="q1" value="b"> <span data-en="Check the source and supporting evidence" data-hi="स्रोत और प्रमाण जाँचें">Check the source and supporting evidence</span></label>
+    <label><input type="radio" name="q1" value="c"> <span data-en="Trust it if it has many likes" data-hi="बहुत लाइक हों तो भरोसा करें">Trust it if it has many likes</span></label>
+    <div class="quiz-question" data-en="2. What should a health-awareness chatbot do?" data-hi="2. स्वास्थ्य-जागरूकता चैटबॉट को क्या करना चाहिए?">2. What should a health-awareness chatbot do?</div>
+    <label><input type="radio" name="q2" value="a"> <span data-en="Diagnose a disease from a few words" data-hi="कुछ शब्दों से बीमारी का निदान करना">Diagnose a disease from a few words</span></label>
+    <label><input type="radio" name="q2" value="b"> <span data-en="Replace doctors in every situation" data-hi="हर स्थिति में डॉक्टर का विकल्प बनना">Replace doctors in every situation</span></label>
+    <label><input type="radio" name="q2" value="c"> <span data-en="Provide general information and explain its limits" data-hi="सामान्य जानकारी देना और अपनी सीमाएँ बताना">Provide general information and explain its limits</span></label>
+    <div class="quiz-question" data-en="3. What should you do if a symptom is severe or rapidly worsening?" data-hi="3. लक्षण गंभीर हों या तेजी से बिगड़ रहे हों तो क्या करें?">3. What should you do if a symptom is severe or rapidly worsening?</div>
+    <label><input type="radio" name="q3" value="a"> <span data-en="Seek urgent professional medical help" data-hi="तुरंत चिकित्सकीय सहायता लें">Seek urgent professional medical help</span></label>
+    <label><input type="radio" name="q3" value="b"> <span data-en="Rely only on a chatbot" data-hi="केवल चैटबॉट पर निर्भर रहें">Rely only on a chatbot</span></label>
+    <label><input type="radio" name="q3" value="c"> <span data-en="Ignore it" data-hi="इसे अनदेखा करें">Ignore it</span></label>
+    <button class="btn" type="submit" data-en="Submit quiz" data-hi="क्विज़ जमा करें">Submit quiz</button>
+   </form>
+   <div id="quizResult" aria-live="polite"></div>
+  </div>
+ </div>
+</section>
+
+<section class="section alt" id="sources">
+ <div class="wrap">
+  <div class="section-head"><div><div class="kicker" data-en="READ FROM THE SOURCE" data-hi="मूल स्रोत से पढ़ें">READ FROM THE SOURCE</div><h2 data-en="Trusted Health Sources" data-hi="विश्वसनीय स्वास्थ्य स्रोत">Trusted Health Sources</h2></div><p data-en="Use established public-health organisations for further reading. A link is a starting point, not a substitute for personalised medical advice." data-hi="आगे पढ़ने के लिए स्थापित सार्वजनिक स्वास्थ्य संस्थाओं का उपयोग करें। लिंक जानकारी की शुरुआत है, व्यक्तिगत चिकित्सकीय सलाह का विकल्प नहीं।">Use established public-health organisations for further reading. A link is a starting point, not a substitute for personalised medical advice.</p></div>
+  <div class="source-grid">
+   <article class="source-card"><span class="pill">GLOBAL</span><h3>World Health Organization</h3><p data-en="Global health topics, fact sheets, health promotion and public-health guidance." data-hi="वैश्विक स्वास्थ्य विषय, तथ्य-पत्र, स्वास्थ्य संवर्धन और सार्वजनिक स्वास्थ्य मार्गदर्शन।">Global health topics, fact sheets, health promotion and public-health guidance.</p><a href="https://www.who.int/health-topics" target="_blank" rel="noopener">who.int/health-topics ↗</a></article>
+   <article class="source-card"><span class="pill" data-en="INDIA" data-hi="भारत">INDIA</span><h3 data-en="Ministry of Health & Family Welfare" data-hi="स्वास्थ्य एवं परिवार कल्याण मंत्रालय">Ministry of Health & Family Welfare</h3><p data-en="Official Indian government health policies, programmes and announcements." data-hi="भारत सरकार की आधिकारिक स्वास्थ्य नीतियाँ, कार्यक्रम और घोषणाएँ।">Official Indian government health policies, programmes and announcements.</p><a href="https://mohfw.gov.in/" target="_blank" rel="noopener">mohfw.gov.in ↗</a></article>
+   <article class="source-card"><span class="pill" data-en="INDIA" data-hi="भारत">INDIA</span><h3 data-en="National Health Mission" data-hi="राष्ट्रीय स्वास्थ्य मिशन">National Health Mission</h3><p data-en="Information about public-health initiatives and health services in India." data-hi="भारत में सार्वजनिक स्वास्थ्य पहलों और स्वास्थ्य सेवाओं की जानकारी।">Information about public-health initiatives and health services in India.</p><a href="https://nhm.gov.in/" target="_blank" rel="noopener">nhm.gov.in ↗</a></article>
+   <article class="source-card"><span class="pill" data-en="HEALTH INFORMATION" data-hi="स्वास्थ्य जानकारी">HEALTH INFORMATION</span><h3>MedlinePlus</h3><p data-en="Accessible health information, medical topics and explanations for the public." data-hi="आम लोगों के लिए सुलभ स्वास्थ्य जानकारी, चिकित्सा विषय और व्याख्याएँ।">Accessible health information, medical topics and explanations for the public.</p><a href="https://medlineplus.gov/" target="_blank" rel="noopener">medlineplus.gov ↗</a></article>
+   <article class="source-card"><span class="pill" data-en="HEALTH RESEARCH" data-hi="स्वास्थ्य अनुसंधान">HEALTH RESEARCH</span><h3>National Institutes of Health</h3><p data-en="Research-based health information and links to health and medical resources." data-hi="अनुसंधान-आधारित स्वास्थ्य जानकारी और चिकित्सा संसाधनों के लिंक।">Research-based health information and links to health and medical resources.</p><a href="https://www.nih.gov/health-information" target="_blank" rel="noopener">nih.gov/health-information ↗</a></article>
+   <article class="source-card"><span class="pill" data-en="EMERGENCY" data-hi="आपातकाल">EMERGENCY</span><h3 data-en="India Emergency Response Support" data-hi="भारत आपातकालीन सहायता">India Emergency Response Support</h3><p data-en="For an emergency in India, call 112. Do not wait for an online response." data-hi="भारत में आपातकालीन स्थिति में 112 पर कॉल करें। ऑनलाइन उत्तर का इंतज़ार न करें।">For an emergency in India, call 112. Do not wait for an online response.</p><a href="https://112.gov.in/" target="_blank" rel="noopener">112.gov.in ↗</a></article>
+  </div>
+ </div>
+</section>
+<section class="section alt" id="emergency-contacts">
+ <div class="wrap"><div class="section-head"><div><div class="kicker">HELP WHEN IT MATTERS</div><h2 data-en="Emergency & Support Contacts in India" data-hi="भारत में आपातकालीन और सहायता नंबर">Emergency & Support Contacts in India</h2></div><p data-en="For immediate life-threatening danger, call 112 first. Numbers and service availability can vary by state; verify non-emergency contacts with the linked official directory." data-hi="जानलेवा आपात स्थिति में सबसे पहले 112 पर कॉल करें। अन्य नंबरों और सेवाओं की उपलब्धता राज्य के अनुसार बदल सकती है; आधिकारिक निर्देशिका से पुष्टि करें।">For immediate life-threatening danger, call 112 first. Numbers and service availability can vary by state; verify non-emergency contacts with the linked official directory.</p></div>
+ <div class="card" style="overflow-x:auto"><table style="width:100%;border-collapse:collapse;min-width:560px"><thead><tr><th style="text-align:left;padding:12px;border-bottom:2px solid #739482">Service</th><th style="text-align:left;padding:12px;border-bottom:2px solid #739482">Number</th><th style="text-align:left;padding:12px;border-bottom:2px solid #739482">Notes</th></tr></thead><tbody>
+ <tr><td style="padding:11px;border-bottom:1px solid #ddd">All-in-one emergency response (police/fire/medical)</td><td style="padding:11px;border-bottom:1px solid #ddd"><a href="tel:112">112</a></td><td style="padding:11px;border-bottom:1px solid #ddd">Pan-India emergency number</td></tr>
+ <tr><td style="padding:11px;border-bottom:1px solid #ddd">Ambulance / National Ambulance Service</td><td style="padding:11px;border-bottom:1px solid #ddd"><a href="tel:108">108</a> / <a href="tel:102">102</a></td><td style="padding:11px;border-bottom:1px solid #ddd">Service coverage may vary by state</td></tr>
+ <tr><td style="padding:11px;border-bottom:1px solid #ddd">Police (legacy number; 112 preferred)</td><td style="padding:11px;border-bottom:1px solid #ddd"><a href="tel:100">100</a></td><td style="padding:11px;border-bottom:1px solid #ddd">Use 112 for unified emergency response</td></tr>
+ <tr><td style="padding:11px;border-bottom:1px solid #ddd">Fire and rescue</td><td style="padding:11px;border-bottom:1px solid #ddd"><a href="tel:101">101</a></td><td style="padding:11px;border-bottom:1px solid #ddd">Fire emergencies</td></tr>
+ <tr><td style="padding:11px;border-bottom:1px solid #ddd">Child Helpline</td><td style="padding:11px;border-bottom:1px solid #ddd"><a href="tel:1098">1098</a></td><td style="padding:11px;border-bottom:1px solid #ddd">Children in distress or at risk</td></tr>
+ <tr><td style="padding:11px;border-bottom:1px solid #ddd">Women Power Line (Uttar Pradesh)</td><td style="padding:11px;border-bottom:1px solid #ddd"><a href="tel:1090">1090</a></td><td style="padding:11px;border-bottom:1px solid #ddd">UP-specific support</td></tr>
+ <tr><td style="padding:11px;border-bottom:1px solid #ddd">Women Helpline</td><td style="padding:11px;border-bottom:1px solid #ddd"><a href="tel:181">181</a></td><td style="padding:11px;border-bottom:1px solid #ddd">Check local availability</td></tr>
+ <tr><td style="padding:11px;border-bottom:1px solid #ddd">Disaster management (UP district control room listing)</td><td style="padding:11px;border-bottom:1px solid #ddd"><a href="tel:1077">1077</a></td><td style="padding:11px;border-bottom:1px solid #ddd">District/state availability varies</td></tr>
+ <tr><td style="padding:11px;border-bottom:1px solid #ddd">UP Chief Minister Helpline</td><td style="padding:11px;border-bottom:1px solid #ddd"><a href="tel:1076">1076</a></td><td style="padding:11px;border-bottom:1px solid #ddd">Public grievance line; not a medical emergency line</td></tr>
+ <tr><td style="padding:11px;border-bottom:1px solid #ddd">Cyber crime financial fraud</td><td style="padding:11px;border-bottom:1px solid #ddd"><a href="tel:1930">1930</a></td><td style="padding:11px;border-bottom:1px solid #ddd">Report cyber financial fraud promptly</td></tr>
+ <tr><td style="padding:11px;border-bottom:1px solid #ddd">Railway assistance</td><td style="padding:11px;border-bottom:1px solid #ddd"><a href="tel:139">139</a></td><td style="padding:11px;border-bottom:1px solid #ddd">Railway passenger help</td></tr>
+ <tr><td style="padding:11px;border-bottom:1px solid #ddd">LPG gas leak</td><td style="padding:11px;border-bottom:1px solid #ddd"><a href="tel:1906">1906</a></td><td style="padding:11px;border-bottom:1px solid #ddd">Gas leakage reporting</td></tr>
+ <tr><td style="padding:11px;border-bottom:1px solid #ddd">Tele-MANAS mental health support</td><td style="padding:11px;border-bottom:1px solid #ddd"><a href="tel:14416">14416</a></td><td style="padding:11px;border-bottom:1px solid #ddd">Mental health support; if immediate danger, call 112</td></tr>
+ </tbody></table><p style="margin:14px 0 0"><strong>Official verification:</strong> <a href="https://www.india.gov.in/directory/helpline" target="_blank" rel="noopener">National Portal of India helplines</a> · <a href="https://lucknow.nic.in/help-line/" target="_blank" rel="noopener">Lucknow district helplines</a> · <a href="https://112.gov.in/" target="_blank" rel="noopener">ERSS 112</a></p></div></div>
+</section>
+
+</main>
+
+<footer>
+ <div class="wrap footer-row">
+  <div><a class="brand" href="#home" style="color:white"><span class="brand-icon">✚</span>SwasthyaSathi AI</a><p data-en="A health-awareness prototype for informed communities and responsible digital health literacy." data-hi="जागरूक समुदायों और जिम्मेदार डिजिटल स्वास्थ्य साक्षरता के लिए स्वास्थ्य-जागरूकता प्रोटोटाइप।">A health-awareness prototype for informed communities and responsible digital health literacy.</p></div>
+  <div><strong data-en="Remember" data-hi="याद रखें">Remember</strong><p data-en="Understand the information. Check the source. Consult a qualified health professional when needed." data-hi="जानकारी समझें। स्रोत जाँचें। ज़रूरत पड़ने पर योग्य स्वास्थ्य विशेषज्ञ से सलाह लें।">Understand the information. Check the source. Consult a qualified health professional when needed.</p><a href="#sources" data-en="Visit trusted sources ↑" data-hi="विश्वसनीय स्रोत देखें ↑">Visit trusted sources ↑</a></div>
+ </div>
+ <div class="wrap" style="border-top:1px solid #426451;margin-top:22px;padding-top:15px"><p>© 2026 SwasthyaSathi AI · <span data-en="Educational demonstration only. Not medical advice." data-hi="केवल शैक्षिक प्रदर्शन। चिकित्सकीय सलाह नहीं।">Educational demonstration only. Not medical advice.</span></p></div>
+</footer>
+
+<script>
+let language = "en";
+const translations = {
+en: {
+input:"Ask about a common symptom or health topic…",
+urgent:"If this may be an emergency, call 112 in India or your local emergency number now. Do not wait for a chatbot response.",
+medical:"This guide provides general health education, not a diagnosis. I cannot determine the cause of your symptoms or recommend a personal treatment. Please consult a qualified healthcare professional if you are concerned.",
+sources:'<p><strong>Trusted sources:</strong> <a href="https://www.nhs.uk/conditions/" target="_blank" rel="noopener">NHS health conditions</a> · <a href="https://medlineplus.gov/" target="_blank" rel="noopener">MedlinePlus</a> · <a href="https://www.who.int/health-topics" target="_blank" rel="noopener">WHO</a></p>',
+emergencyWords:["difficulty breathing","shortness of breath","chest pain","unconscious","fainting","seizure","severe bleeding","stroke","suicidal","overdose","blue lips","can't breathe","cannot breathe","sudden weakness","confusion"],
+},
+};
+const healthData = {
+fever:{
+title:"Fever / बुखार",
+en:`<p><strong>What it can mean:</strong> Fever is a rise in body temperature and can occur with infections and other conditions. A fever alone cannot identify the cause.</p><p><strong>Safer steps:</strong></p><ul><li>Rest and drink fluids regularly if you can keep them down.</li><li>Check your temperature with a thermometer if available.</li><li>Avoid excessive clothing or overheating. Follow local clinical advice.</li></ul><p><strong>Seek urgent medical help</strong> for difficulty breathing, confusion, seizure, stiff neck with severe headache, severe dehydration, or rapid worsening. A baby younger than 3 months with a temperature of 38°C (100.4°F) or higher needs urgent medical assessment. Seek professional advice for persistent fever or if you are pregnant, immunocompromised, or seriously unwell.</p>`,
+hi:`<p><strong>इसका क्या अर्थ हो सकता है:</strong> बुखार शरीर का तापमान बढ़ना है। यह संक्रमण और अन्य स्थितियों में हो सकता है। केवल बुखार से कारण की पुष्टि नहीं होती।</p><p><strong>सुरक्षित कदम:</strong></p><ul><li>आराम करें और यदि उल्टी नहीं हो रही है तो नियमित रूप से तरल पदार्थ लें।</li><li>थर्मामीटर उपलब्ध हो तो तापमान जाँचें।</li><li>बहुत अधिक कपड़े पहनकर शरीर को गर्म न करें।</li></ul><p><strong>तुरंत चिकित्सा सहायता लें</strong> यदि साँस लेने में परेशानी, भ्रम, दौरा, तेज सिरदर्द के साथ गर्दन अकड़ना, गंभीर निर्जलीकरण या तेजी से बिगड़ती स्थिति हो। 3 महीने से कम उम्र के शिशु का तापमान 38°C या अधिक हो तो तुरंत जाँच आवश्यक है। लगातार बुखार या गर्भावस्था/कमजोर प्रतिरक्षा की स्थिति में चिकित्सकीय सलाह लें।</p>`
+},
+headache:{
+title:"Headache / सिरदर्द",
+en:`<p><strong>Possible explanations:</strong> Headaches can be associated with dehydration, missed meals, stress, poor sleep, eye strain, migraine, or other causes. This list cannot identify your cause.</p><p><strong>Safer steps:</strong></p><ul><li>Rest somewhere quiet if possible.</li><li>Drink water and consider whether you have missed a meal.</li><li>Take a break from screens and try a regular sleep routine.</li></ul><p><strong>Get emergency help</strong> for a sudden, extremely severe headache, headache after a serious head injury, or headache with weakness, trouble speaking, confusion, loss of vision, fever with a stiff neck, or reduced consciousness. Seek medical advice for new, recurring, persistent, or worsening headaches.</p>`,
+hi:`<p><strong>संभावित कारण:</strong> सिरदर्द पानी की कमी, भोजन छोड़ने, तनाव, कम नींद, आँखों पर दबाव, माइग्रेन या अन्य कारणों से हो सकता है। इससे आपके सिरदर्द का कारण तय नहीं किया जा सकता।</p><p><strong>सुरक्षित कदम:</strong></p><ul><li>संभव हो तो शांत जगह पर आराम करें।</li><li>पानी पिएँ और सोचें कि कहीं भोजन तो नहीं छोड़ा।</li><li>स्क्रीन से विराम लें और नियमित नींद की कोशिश करें।</li></ul><p><strong>आपातकालीन सहायता लें</strong> यदि सिरदर्द अचानक बहुत तेज हो, गंभीर सिर की चोट के बाद हो, या साथ में कमजोरी, बोलने में कठिनाई, भ्रम, दृष्टि खोना, बुखार के साथ गर्दन अकड़ना या होश कम होना हो। नया, बार-बार होने वाला या बढ़ता सिरदर्द डॉक्टर को दिखाएँ।</p>`
+},
+cough:{
+title:"Cough / खाँसी",
+en:`<p><strong>Possible explanations:</strong> Cough can occur with viral respiratory infections, allergies, asthma, irritation, or other conditions. A chatbot cannot distinguish these causes.</p><p><strong>Safer steps:</strong></p><ul><li>Drink fluids and rest.</li><li>Avoid smoke, dust, and other irritants when possible.</li><li>Warm drinks may soothe the throat. Honey may help some people with cough, but never give honey to a child under 1 year.</li></ul><p><strong>Seek urgent help</strong> for breathing difficulty, blue or grey lips, severe chest pain, coughing up more than small streaks of blood, or confusion. Consult a clinician for persistent or worsening cough, coughing up blood, or cough with prolonged fever. Do not start antibiotics without medical advice.</p>`,
+hi:`<p><strong>संभावित कारण:</strong> खाँसी वायरल श्वसन संक्रमण, एलर्जी, अस्थमा, जलन या अन्य स्थितियों में हो सकती है। चैटबॉट इन कारणों में अंतर नहीं कर सकता।</p><p><strong>सुरक्षित कदम:</strong></p><ul><li>तरल पदार्थ लें और आराम करें।</li><li>संभव हो तो धुएँ, धूल और जलन पैदा करने वाली चीज़ों से बचें।</li><li>गर्म पेय गले को आराम दे सकते हैं। एक वर्ष से कम उम्र के बच्चे को शहद कभी न दें।</li></ul><p><strong>तुरंत सहायता लें</strong> यदि साँस लेने में कठिनाई, होंठ नीले/धूसर होना, तेज सीने में दर्द, खाँसी में खून या भ्रम हो। लगातार या बढ़ती खाँसी, खून या लंबे बुखार के साथ खाँसी में डॉक्टर से सलाह लें। बिना चिकित्सकीय सलाह एंटीबायोटिक न लें।</p>`
+},
+vomiting:{
+title:"Nausea and vomiting / मतली और उल्टी",
+en:`<p><strong>Possible explanations:</strong> Nausea or vomiting can be associated with stomach infections, food-related illness, migraine, pregnancy, medicines, and other causes. Symptoms alone cannot confirm which cause applies.</p><p><strong>Safer steps:</strong></p><ul><li>Try small, frequent sips of water or a suitable oral rehydration solution if available.</li><li>Rest and return to food gently as tolerated.</li><li>Do not force large amounts of fluid at once if this triggers more vomiting.</li></ul><p><strong>Seek urgent care</strong> for blood or green vomit, severe abdominal pain, confusion, fainting, inability to keep fluids down, very little urine, or signs of severe dehydration. Babies, older adults, pregnant people, and people with significant medical conditions may need earlier assessment.</p>`,
+hi:`<p><strong>संभावित कारण:</strong> मतली या उल्टी पेट के संक्रमण, दूषित भोजन, माइग्रेन, गर्भावस्था, दवाओं या अन्य कारणों से हो सकती है। केवल लक्षणों से कारण की पुष्टि नहीं होती।</p><p><strong>सुरक्षित कदम:</strong></p><ul><li>पानी या उपलब्ध उपयुक्त ओआरएस के छोटे-छोटे घूँट लें।</li><li>आराम करें और सहन होने पर धीरे-धीरे भोजन लें।</li><li>एक साथ बहुत अधिक तरल न पिएँ यदि इससे उल्टी बढ़ती हो।</li></ul><p><strong>तुरंत चिकित्सा सहायता लें</strong> यदि उल्टी में खून या हरा पदार्थ हो, पेट में तेज दर्द हो, भ्रम/बेहोशी हो, तरल पदार्थ रुक न रहे हों, पेशाब बहुत कम हो या गंभीर निर्जलीकरण के संकेत हों। शिशुओं, बुज़ुर्गों, गर्भवती लोगों और गंभीर स्वास्थ्य समस्याओं वाले लोगों को जल्दी जाँच की आवश्यकता हो सकती है।</p>`
+},
+stomach:{
+title:"Stomach pain / पेट दर्द",
+en:`<p><strong>Possible explanations:</strong> Abdominal pain may be associated with gas, indigestion, constipation, infections, menstrual cramps, or conditions that need urgent care. Location and severity alone are not enough for a reliable diagnosis online.</p><p><strong>Safer steps for mild discomfort:</strong></p><ul><li>Rest and take small sips of water.</li><li>Notice where the pain is, when it began, and whether it is changing.</li><li>Avoid foods or drinks that clearly worsen the discomfort.</li></ul><p><strong>Get urgent medical assessment</strong> for sudden or severe pain, a hard or swollen abdomen, blood in vomit or stool, black stools, fainting, persistent vomiting, difficulty breathing, or possible pregnancy with pain or bleeding. Worsening, localised, or persistent pain should be assessed by a clinician.</p>`,
+hi:`<p><strong>संभावित कारण:</strong> पेट दर्द गैस, अपच, कब्ज, संक्रमण, मासिक धर्म के दर्द या ऐसी स्थितियों से हो सकता है जिनमें तुरंत चिकित्सा चाहिए। केवल ऑनलाइन विवरण से भरोसेमंद निदान नहीं हो सकता।</p><p><strong>हल्की परेशानी में सुरक्षित कदम:</strong></p><ul><li>आराम करें और पानी के छोटे घूँट लें।</li><li>ध्यान दें कि दर्द कहाँ है, कब शुरू हुआ और बदल रहा है या नहीं।</li><li>ऐसे भोजन या पेय से बचें जो स्पष्ट रूप से परेशानी बढ़ाते हैं।</li></ul><p><strong>तुरंत चिकित्सा जाँच लें</strong> यदि दर्द अचानक या बहुत तेज हो, पेट सख्त/फूला हो, उल्टी या मल में खून हो, मल काला हो, बेहोशी हो, लगातार उल्टी हो, साँस लेने में परेशानी हो या गर्भावस्था की संभावना के साथ दर्द/रक्तस्राव हो। बढ़ते, किसी एक जगह केंद्रित या लगातार दर्द की जाँच कराएँ।</p>`
+},
+diarrhea:{
+title:"Diarrhoea / दस्त",
+en:`<p><strong>Possible explanations:</strong> Diarrhoea can occur with infections, food-related illness, medicines, and other conditions.</p><p><strong>Safer steps:</strong></p><ul><li>Replace fluids; an appropriate oral rehydration solution can help prevent dehydration.</li><li>Eat as tolerated and practise careful handwashing.</li><li>Avoid preparing food for others while ill if possible.</li></ul><p><strong>Seek medical help</strong> for blood in stool, severe abdominal pain, high or persistent fever, repeated vomiting, very little urine, dizziness, confusion, or other signs of dehydration. Seek advice sooner for young children, older adults, pregnancy, or significant underlying illness.</p>`,
+hi:`<p><strong>संभावित कारण:</strong> दस्त संक्रमण, दूषित भोजन, दवाओं या अन्य स्थितियों में हो सकते हैं।</p><p><strong>सुरक्षित कदम:</strong></p><ul><li>तरल पदार्थ की कमी पूरी करें; उपयुक्त ओआरएस निर्जलीकरण से बचाने में मदद कर सकता है।</li><li>सहन होने पर भोजन लें और हाथ सावधानी से धोएँ।</li><li>संभव हो तो बीमार होने पर दूसरों के लिए भोजन न बनाएँ।</li></ul><p><strong>चिकित्सा सहायता लें</strong> यदि मल में खून, तेज पेट दर्द, तेज या लगातार बुखार, बार-बार उल्टी, बहुत कम पेशाब, चक्कर, भ्रम या निर्जलीकरण के अन्य संकेत हों। छोटे बच्चों, बुज़ुर्गों, गर्भवती लोगों या गंभीर बीमारी वाले लोगों को जल्दी सलाह लेनी चाहिए।</p>`
+},
+sorethroat:{
+title:"Sore throat / गले में खराश",
+en:`<p><strong>Possible explanations:</strong> Sore throat can occur with viral infections, irritation, allergies, or other causes.</p><p><strong>Safer steps:</strong> Drink fluids, rest, avoid smoke, and consider warm drinks. Gargling with warm salt water may soothe some adults and older children who can gargle safely; do not swallow it.</p><p><strong>Seek urgent help</strong> if you cannot breathe or swallow saliva, have rapidly increasing throat or neck swelling, or become confused. Consult a clinician for severe, persistent, or worsening symptoms or if you have a high fever or rash.</p>`,
+hi:`<p><strong>संभावित कारण:</strong> गले में खराश वायरल संक्रमण, जलन, एलर्जी या अन्य कारणों से हो सकती है।</p><p><strong>सुरक्षित कदम:</strong> तरल पदार्थ लें, आराम करें और धुएँ से बचें। गर्म पेय आराम दे सकते हैं। जो वयस्क और बड़े बच्चे सुरक्षित रूप से गरारे कर सकते हैं, वे गुनगुने नमक-पानी से गरारे कर सकते हैं; उसे निगलें नहीं।</p><p><strong>तुरंत सहायता लें</strong> यदि साँस लेने या लार निगलने में कठिनाई हो, गले/गर्दन की सूजन तेजी से बढ़े या भ्रम हो। तेज, लगातार या बिगड़ते लक्षणों, तेज बुखार या चकत्ते पर चिकित्सक से सलाह लें।</p>`
+},
+skin:{
+title:"Skin breakouts / चेहरे पर दाने",
+en:`<p><strong>Possible explanations:</strong> Facial breakouts can be related to acne, hormonal changes, sweat/occlusion, or irritation from skin or hair products. A description alone cannot confirm the cause.</p><p><strong>Safer steps:</strong></p><ul><li>Wash gently with a mild cleanser; avoid scrubbing or squeezing spots.</li><li>Use non-comedogenic skin products and remove makeup before sleep.</li><li>Introduce only one new product at a time and stop products that cause burning or swelling.</li></ul><p><strong>Seek urgent care</strong> for rapidly spreading painful redness with fever, major facial/eye swelling, or breathing difficulty after a product. See a clinician/dermatologist for painful deep lumps, scarring, persistent or worsening acne, or significant distress.</p><p><a href="https://www.nhs.uk/conditions/acne/" target="_blank" rel="noopener">NHS: Acne</a> · <a href="https://medlineplus.gov/acne.html" target="_blank" rel="noopener">MedlinePlus: Acne</a></p>`,
+hi:`<p><strong>संभावित कारण:</strong> चेहरे पर दाने मुहाँसे, हार्मोन में बदलाव, पसीने/घर्षण या त्वचा/बालों के उत्पादों से जलन के कारण हो सकते हैं। केवल विवरण से कारण की पुष्टि नहीं होती।</p><p><strong>सुरक्षित कदम:</strong></p><ul><li>हल्के क्लींजर से धीरे साफ करें; रगड़ें नहीं और दानों को न दबाएँ।</li><li>ऐसे उत्पाद चुनें जिन पर non-comedogenic लिखा हो और सोने से पहले मेकअप हटाएँ।</li><li>एक बार में एक नया उत्पाद शुरू करें; जलन या सूजन हो तो उसे रोक दें।</li></ul><p><strong>तुरंत सहायता लें</strong> यदि बुखार के साथ तेजी से फैलती दर्दनाक लालिमा, चेहरे/आँखों की बहुत सूजन या उत्पाद के बाद साँस लेने में परेशानी हो। गहरे दर्दनाक दाने, निशान पड़ना, लगातार/बढ़ते मुहाँसे या बहुत मानसिक परेशानी हो तो डॉक्टर/त्वचा विशेषज्ञ से मिलें।</p><p><a href="https://www.nhs.uk/conditions/acne/" target="_blank" rel="noopener">NHS: मुहाँसे</a> · <a href="https://medlineplus.gov/acne.html" target="_blank" rel="noopener">MedlinePlus: मुहाँसे</a></p>`
+},
+mental:{
+title:"Stress and mental well-being / तनाव और मानसिक स्वास्थ्य",
+en:`<p>Stress can affect sleep, concentration, mood, and the body. These effects can have different causes and are not a diagnosis.</p><p><strong>Possible supportive steps:</strong> Try a manageable daily routine, regular sleep, gentle movement, talking with a trusted person, and taking breaks from stressful activities. Professional support can help when distress affects daily life or persists.</p><p>If you might harm yourself or someone else, or cannot keep yourself safe, seek immediate help from emergency services and a trusted person. In India, call 112 for an emergency.</p><p><a href="https://www.who.int/health-topics/mental-health" target="_blank" rel="noopener">WHO mental health information</a></p>`,
+hi:`<p>तनाव नींद, ध्यान, मनोदशा और शरीर को प्रभावित कर सकता है। इसके अलग-अलग कारण हो सकते हैं; यह स्वयं में निदान नहीं है।</p><p><strong>सहायक कदम:</strong> नियमित दिनचर्या, पर्याप्त नींद, हल्की शारीरिक गतिविधि, भरोसेमंद व्यक्ति से बातचीत और तनावपूर्ण गतिविधियों से विराम लेने की कोशिश करें। परेशानी बनी रहे या दैनिक जीवन प्रभावित हो तो पेशेवर सहायता लें।</p><p>यदि आपको स्वयं या किसी अन्य को नुकसान पहुँचाने का खतरा है या आप स्वयं को सुरक्षित नहीं रख पा रहे हैं, तो तुरंत आपातकालीन सेवा और किसी भरोसेमंद व्यक्ति से सहायता लें। भारत में आपात स्थिति के लिए 112 पर कॉल करें।</p><p><a href="https://www.who.int/health-topics/mental-health" target="_blank" rel="noopener">WHO मानसिक स्वास्थ्य जानकारी</a></p>`
+},
+misinformation:{
+title:"Health misinformation / स्वास्थ्य संबंधी भ्रामक जानकारी",
+en:`<p><strong>How to check a claim:</strong></p><ul><li>Find the original source and author.</li><li>Check the publication date and whether the information is current.</li><li>Look for evidence and whether trustworthy public-health organisations agree.</li><li>Be cautious with miracle cures, guaranteed results, pressure to buy, or advice to avoid professional care.</li><li>Do not share a claim as fact when you cannot verify it.</li></ul><p>Start with <a href="https://www.who.int/health-topics" target="_blank" rel="noopener">WHO</a> or India's <a href="https://mohfw.gov.in/" target="_blank" rel="noopener">Ministry of Health and Family Welfare</a>.</p>`,
+hi:`<p><strong>किसी दावे की जाँच कैसे करें:</strong></p><ul><li>मूल स्रोत और लेखक खोजें।</li><li>प्रकाशन की तारीख देखें और जानकारी वर्तमान है या नहीं जाँचें।</li><li>प्रमाण खोजें और देखें कि विश्वसनीय सार्वजनिक स्वास्थ्य संस्थाएँ क्या कहती हैं।</li><li>चमत्कारी इलाज, गारंटी, खरीदने का दबाव या डॉक्टर से बचने की सलाह पर सावधान रहें।</li><li>जिस दावे की पुष्टि न हो, उसे तथ्य बताकर साझा न करें।</li></ul><p><a href="https://www.who.int/health-topics" target="_blank" rel="noopener">WHO</a> या भारत के <a href="https://mohfw.gov.in/" target="_blank" rel="noopener">स्वास्थ्य एवं परिवार कल्याण मंत्रालय</a> से शुरुआत करें।</p>`
+},
+vaccines:{
+title:"Vaccines / टीकाकरण",
+en:`<p>Vaccines help prepare the immune system to protect against specific diseases. The recommended vaccine and schedule depend on age, health, location, and current public-health guidance.</p><p>Use official guidance, keep vaccination records, and ask a qualified healthcare professional about individual concerns, allergies, pregnancy, or previous reactions. Do not rely on viral posts alone.</p><p><a href="https://www.who.int/health-topics/vaccines-and-immunization" target="_blank" rel="noopener">WHO vaccines and immunization</a> · <a href="https://mohfw.gov.in/" target="_blank" rel="noopener">Indian Ministry of Health</a></p>`,
+hi:`<p>टीके प्रतिरक्षा प्रणाली को कुछ विशेष बीमारियों से सुरक्षा के लिए तैयार करने में मदद करते हैं। कौन-सा टीका और कब लगना चाहिए, यह उम्र, स्वास्थ्य, स्थान और वर्तमान सार्वजनिक स्वास्थ्य मार्गदर्शन पर निर्भर करता है।</p><p>आधिकारिक जानकारी देखें, टीकाकरण का रिकॉर्ड रखें और व्यक्तिगत चिंताओं, एलर्जी, गर्भावस्था या पहले हुई प्रतिक्रिया के बारे में योग्य स्वास्थ्य विशेषज्ञ से पूछें। केवल वायरल संदेशों पर निर्भर न रहें।</p><p><a href="https://www.who.int/health-topics/vaccines-and-immunization" target="_blank" rel="noopener">WHO टीकाकरण जानकारी</a> · <a href="https://mohfw.gov.in/" target="_blank" rel="noopener">भारतीय स्वास्थ्य मंत्रालय</a></p>`
+},
+exercise:{
+title:"Physical activity / शारीरिक गतिविधि",
+en:`<p>Regular physical activity can support physical and mental well-being. Suitable activity varies by age, ability, health conditions, and circumstances.</p><p>Start at a comfortable level, increase gradually, and choose activities you can do safely. Stop and seek urgent help for chest pain, fainting, or severe breathing difficulty during activity. Ask a healthcare professional for guidance if you have a condition that affects exercise.</p><p><a href="https://www.who.int/news-room/fact-sheets/detail/physical-activity" target="_blank" rel="noopener">WHO physical activity guidance</a></p>`,
+hi:`<p>नियमित शारीरिक गतिविधि शारीरिक और मानसिक स्वास्थ्य में मदद कर सकती है। उपयुक्त गतिविधि उम्र, क्षमता, स्वास्थ्य स्थितियों और परिस्थितियों पर निर्भर करती है।</p><p>आरामदायक स्तर से शुरुआत करें, धीरे-धीरे बढ़ाएँ और सुरक्षित गतिविधि चुनें। गतिविधि के दौरान सीने में दर्द, बेहोशी या साँस लेने में गंभीर परेशानी हो तो रुकें और तुरंत सहायता लें। यदि कोई स्वास्थ्य समस्या व्यायाम को प्रभावित करती है तो विशेषज्ञ से सलाह लें।</p><p><a href="https://www.who.int/news-room/fact-sheets/detail/physical-activity" target="_blank" rel="noopener">WHO शारीरिक गतिविधि मार्गदर्शन</a></p>`
+},
+eating:{
+title:"Healthy eating / स्वस्थ खान-पान",
+en:`<p>A balanced eating pattern generally includes variety across food groups and adequate nutrients. Individual needs differ with age, health, culture, availability, and other factors.</p><p>Be cautious about extreme diets and claims that one food cures a disease. If you have a medical condition, food allergy, are pregnant, or need a specialised diet, ask a qualified healthcare professional.</p><p><a href="https://www.who.int/news-room/fact-sheets/detail/healthy-diet" target="_blank" rel="noopener">WHO healthy diet information</a></p>`,
+hi:`<p>संतुलित खान-पान में सामान्यतः अलग-अलग खाद्य समूह और पर्याप्त पोषक तत्व शामिल होते हैं। ज़रूरतें उम्र, स्वास्थ्य, संस्कृति, उपलब्धता और अन्य कारकों के अनुसार बदलती हैं।</p><p>अत्यधिक प्रतिबंध वाले आहार और किसी एक भोजन से बीमारी ठीक होने के दावों पर सावधान रहें। स्वास्थ्य समस्या, खाद्य एलर्जी, गर्भावस्था या विशेष आहार की ज़रूरत होने पर योग्य स्वास्थ्य विशेषज्ञ से सलाह लें।</p><p><a href="https://www.who.int/news-room/fact-sheets/detail/healthy-diet" target="_blank" rel="noopener">WHO स्वस्थ आहार जानकारी</a></p>`
+}
+};
+
+function addMessage(content,who="bot"){
+ const box=document.createElement("div");
+ box.className="message "+who;
+ box.innerHTML=content;
+ document.getElementById("messages").appendChild(box);
+ document.getElementById("messages").scrollTop=document.getElementById("messages").scrollHeight;
+}
+function normalise(s){return s.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"")}
+function getTopic(text){
+ const t=normalise(text);
+ const patterns=[
+  ["emergency",["difficulty breathing","shortness of breath","breathlessness","cannot catch my breath","chest pain","chest pressure","unconscious","fainting","passed out","seizure","severe bleeding","stroke","overdose","can't breathe","cannot breathe","blue lips","sudden weakness","face drooping","slurred speech","confusion","सांस नहीं","साँस नहीं","सीने में तेज दर्द","बेहोश","दौरा","खून बह","खुदकुशी","आत्महत्या","आत्महानि","जहर","ज़हर"]],
+  ["fever",["fever","temperature","high temp","running a temperature","feeling feverish","body ache","body aches","body pain","chills","hot and cold","बुखार","बदन दर्द","शरीर दर्द","शरीर में दर्द","कंपकंपी","तेज तापमान","तेज़ तापमान"]],
+  ["headache",["headache","head ache","head is hurting","head hurts","head is paining","pain in my head","painful head","migraine","सिरदर्द","सिर दर्द","सिर में दर्द","मेरा सिर दुख रहा","सिर फट रहा","माइग्रेन"]],
+  ["cough",["cough","coughing","dry cough","wet cough","phlegm","cold","common cold","runny nose","blocked nose","sneezing","sore throat","throat pain","throat hurts","throat is paining","गले में खराश","गला दर्द","खांसी","खाँसी","जुकाम","नाक बहना","छींक"]],
+  ["vomiting",["vomit","vomiting","throwing up","feel like vomiting","feeling nauseous","nausea","nauseous","sick to my stomach","उल्टी","उल्टी जैसा","मतली","जी मिचलाना","जी घबराना"]],
+  ["stomach",["stomach pain","stomachache","stomach ache","abdominal pain","belly pain","tummy pain","stomach hurts","stomach is paining","cramps","indigestion","bloating","gas pain","पेट दर्द","पेट में दर्द","पेट दुख","पेट में ऐंठन","अपच","गैस","पेट फूलना"]],
+  ["diarrhea",["diarrhea","diarrhoea","loose motion","loose motions","loose stool","watery stool","watery diarrhoea","frequent stool","frequent toilet","दस्त","पतले दस्त","बार बार दस्त","पानी जैसे दस्त"]],
+  ["skin",["breakout","breakouts","pimples","pimple","acne","spots on my face","spots on face","skin rash","facial rash","मुहाँसे","मुहांसे","चेहरे पर दाने","चेहरे पे दाने","दाने निकल","पिंपल"]],
+  ["mental",["stress","anxiety","anxious","panic","panic attack","feeling overwhelmed","can't sleep","cannot sleep","not able to sleep","feeling low","feeling sad","mental health","तनाव","चिंता","घबराहट","बेचैनी","नींद नहीं","नींद नहीं आ रही","उदास","मानसिक स्वास्थ्य"]],
+  ["misinformation",["misinformation","fake news","viral message","health claim","fact check","भ्रामक","फर्जी खबर","फेक न्यूज़","दावे की जांच","दावे की जाँच","गलत जानकारी","वायरल संदेश"]],
+  ["vaccines",["vaccine","vaccination","टीका","टीकाकरण","वैक्सीन"]],
+  ["exercise",["exercise","physical activity","walking","workout","व्यायाम","चलना","कसरत"]],
+  ["eating",["healthy diet","nutrition","food","diet","खान-पान","पोषण","आहार","खाना"]]
+ ];
+ for(const [topic,words] of patterns){if(words.some(w=>t.includes(normalise(w))))return topic}
+ return null;
+}
+function answerCuratedQuestion(raw){
+ const topic=getTopic(raw);
+ if(topic==="emergency"){
+  return `<p><strong>${language==="en"?"Urgent safety guidance":"तत्काल सुरक्षा सलाह"}</strong></p><p>${language==="en"?"Your message may describe an emergency. I cannot assess it here. Call 112 in India or your local emergency number now, and ask someone nearby to help. Do not wait for this chatbot.":"आपके संदेश में आपात स्थिति का संकेत हो सकता है। मैं यहाँ इसकी जाँच नहीं कर सकता। भारत में 112 या अपने स्थानीय आपातकालीन नंबर पर अभी कॉल करें और पास के किसी व्यक्ति से सहायता लें। चैटबॉट का इंतज़ार न करें।"}</p>`;
+ }
+ if(topic && healthData[topic])return `<p><strong>${healthData[topic].title}</strong></p>${healthData[topic][language]}${language==="en"?'<p><strong>Reminder:</strong> This is general information, not a diagnosis. A qualified healthcare professional can assess your individual situation.</p>':'<p><strong>याद रखें:</strong> यह सामान्य जानकारी है, निदान नहीं। योग्य स्वास्थ्य विशेषज्ञ आपकी व्यक्तिगत स्थिति का आकलन कर सकता है।'}`;
+ if(/thank|thanks|धन्यवाद|शुक्रिया/i.test(raw))return language==="en"?"You're welcome. Please use the trusted sources and seek professional care whenever needed.":"आपका स्वागत है। विश्वसनीय स्रोत देखें और ज़रूरत पड़ने पर चिकित्सकीय सहायता लें।";
+ return language==="en"
+ ?`<p>I may not recognise that wording yet, but I can try to guide you to relevant general information.</p><p>Please tell me: (1) what symptom you feel, (2) when it started, and (3) whether it is mild, moderate, or severe. Do not include your name or other private details. I cannot diagnose or reliably triage symptoms.</p><p>I have prepared guidance for fever/body aches, headache/migraine, cough/cold, nausea/vomiting, stomach pain, diarrhoea, facial breakouts/acne, stress, vaccines, exercise, healthy eating, and checking health misinformation.</p><p>For general information, visit <a href="https://www.who.int/health-topics" target="_blank" rel="noopener">WHO health topics</a>, <a href="https://medlineplus.gov/" target="_blank" rel="noopener">MedlinePlus</a>, or the <a href="https://mohfw.gov.in/" target="_blank" rel="noopener">Indian Ministry of Health</a>.</p><p>If symptoms are severe, worsening, or worrying, contact a qualified healthcare professional.</p>`
+ :`<p>मैं इस शब्दावली को अभी पहचान नहीं पाया/पाई, लेकिन सामान्य जानकारी देने की कोशिश कर सकता/सकती हूँ।</p><p>कृपया बताएँ: (1) क्या लक्षण है, (2) कब शुरू हुआ, और (3) हल्का, मध्यम या गंभीर है। अपना नाम या निजी जानकारी न लिखें। मैं निदान या भरोसेमंद आपातकालीन आकलन नहीं कर सकता/सकती।</p><p>मेरे पास बुखार/बदन दर्द, सिरदर्द/माइग्रेन, खाँसी/जुकाम, मतली/उल्टी, पेट दर्द, दस्त, चेहरे के दाने/मुहाँसे, तनाव, टीकाकरण, व्यायाम, स्वस्थ आहार और भ्रामक स्वास्थ्य जानकारी पर तैयार मार्गदर्शन है।</p><p>सामान्य जानकारी के लिए <a href="https://www.who.int/health-topics" target="_blank" rel="noopener">WHO स्वास्थ्य विषय</a>, <a href="https://medlineplus.gov/" target="_blank" rel="noopener">MedlinePlus</a> या <a href="https://mohfw.gov.in/" target="_blank" rel="noopener">भारतीय स्वास्थ्य मंत्रालय</a> देखें।</p><p>लक्षण गंभीर हों, बिगड़ रहे हों या चिंता का कारण हों तो योग्य स्वास्थ्य विशेषज्ञ से संपर्क करें।`;
+}
+function askQuestion(question){
+ const cleaned=question.trim();
+ if(!cleaned)return;
+ addMessage(escapeHTML(cleaned),"user");
+ addMessage(answerCuratedQuestion(cleaned),"bot");
+ document.getElementById("chatInput").value="";
+}
+function escapeHTML(s){return s.replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
+document.getElementById("chatForm").addEventListener("submit",e=>{
+ e.preventDefault();askQuestion(document.getElementById("chatInput").value);
+});
+document.querySelectorAll("[data-question]").forEach(b=>b.addEventListener("click",()=>askQuestion(b.dataset.question)));
+function checkClaim(n){
+ const value=document.getElementById("claim"+n).value;
+ const correct=n===1?"no":"no";
+ const result=document.getElementById("claimResult"+n);
+ result.style.display="block";
+ if(value===correct){
+  result.style.background="#e7f4e8";
+ }else{
+  result.style.background="#fff0df";
+  if(!value)result.textContent=language==="en"?"Choose an answer first, then check it.":"पहले उत्तर चुनें, फिर जाँचें।";
+ }
+}
+function reviewClaim(){
+ const claim=document.getElementById("customClaim").value.trim();
+ const out=document.getElementById("customClaimResult");
+ out.style.display="block";
+ if(!claim){out.textContent=language==="en"?"Enter a claim first.":"पहले कोई दावा लिखें।";return}
+ const t=claim.toLowerCase();
+ const sugar=/sugar|sugary|candy|sweets|चीनी|मीठा/.test(t) && /hyper|hyperactive|activity|behavio|बच्च|बच्चों|चंचल|अति सक्रिय/.test(t);
+ const links=`<ul><li><a href="https://medlineplus.gov/ency/article/002426.htm" target="_blank" rel="noopener">MedlinePlus: Hyperactivity and sugar</a></li><li><a href="https://pubmed.ncbi.nlm.nih.gov/7474248/" target="_blank" rel="noopener">PubMed: Meta-analysis on sugar and children's behaviour</a></li><li><a href="https://www.healthychildren.org/english/health-issues/conditions/adhd/pages/allergies-and-hyperactivity.aspx" target="_blank" rel="noopener">American Academy of Pediatrics / HealthyChildren.org</a></li><li><a href="https://www.who.int/health-topics/healthy-diet" target="_blank" rel="noopener">WHO: Healthy diet</a></li></ul>`;
+ const genericLinks=`<ul><li><a href="https://www.who.int/health-topics" target="_blank" rel="noopener">WHO health topics</a></li><li><a href="https://mohfw.gov.in/" target="_blank" rel="noopener">India Ministry of Health & Family Welfare</a></li><li><a href="https://medlineplus.gov/" target="_blank" rel="noopener">MedlinePlus health information</a></li><li><a href="https://pubmed.ncbi.nlm.nih.gov/?term=" target="_blank" rel="noopener">PubMed research database</a></li><li><a href="https://www.google.com/search?q=" target="_blank" rel="noopener">Search the exact claim on the web</a></li></ul>`;
+ if(sugar){
+  out.innerHTML=language==="en"?`<strong>Assessment: NOT SUPPORTED as a simple cause-and-effect claim (based on the sources below).</strong><p>The claim that eating sugar directly makes children hyperactive is not supported by controlled studies overall. A classic meta-analysis found no significant overall effect on children's behaviour or cognition, though it cannot rule out every individual response. This is not the same as saying high sugar intake is healthy; limiting excess free sugar is still important for general health.</p><p><strong>Check these sources:</strong></p>${links}<p><em>Evidence note:</em> The sources above are relevant to this specific claim. This prototype uses a curated rule for this example; it does not conduct a live systematic review.</p>`:`<strong>आकलन: सरल कारण-और-परिणाम वाले दावे को उपलब्ध स्रोत समर्थन नहीं देते।</strong><p>नियंत्रित अध्ययनों में कुल मिलाकर यह प्रमाण नहीं मिला कि चीनी खाने से सीधे बच्चों में अतिसक्रियता होती है। एक पुराने मेटा-विश्लेषण में व्यवहार या संज्ञान पर महत्वपूर्ण समग्र प्रभाव नहीं मिला, हालाँकि हर व्यक्ति की प्रतिक्रिया को पूरी तरह नकारा नहीं जा सकता। इसका अर्थ यह नहीं कि अधिक चीनी स्वस्थ है; सामान्य स्वास्थ्य के लिए अतिरिक्त चीनी सीमित रखना फिर भी महत्वपूर्ण है।</p><p><strong>स्रोत देखें:</strong></p>${links}<p><em>प्रमाण संबंधी नोट:</em> ये स्रोत इसी दावे से संबंधित हैं। यह प्रोटोटाइप इस उदाहरण के लिए पहले से तय नियम का उपयोग करता है; यह लाइव व्यवस्थित समीक्षा नहीं करता।</p>`;
+ }else{
+  const q=encodeURIComponent(claim);
+  out.innerHTML=language==="en"?`<strong>Status: NOT VERIFIED BY THIS PROTOTYPE.</strong><p>I won't label this claim true or false without evidence specific to the exact wording. Open the sources below, search the exact claim, check the date and population studied, and compare independent evidence. If the sources disagree or do not directly test the claim, treat it as uncertain and don't share it as confirmed fact.</p><p><strong>Claim entered:</strong> “${escapeHTML(claim)}”</p><p><strong>Reliable starting points and claim-specific searches:</strong></p><ul><li><a href="https://www.who.int/health-topics" target="_blank" rel="noopener">WHO health topics</a></li><li><a href="https://mohfw.gov.in/" target="_blank" rel="noopener">India Ministry of Health & Family Welfare</a></li><li><a href="https://medlineplus.gov/" target="_blank" rel="noopener">MedlinePlus</a></li><li><a href="https://pubmed.ncbi.nlm.nih.gov/?term=${q}" target="_blank" rel="noopener">Search PubMed for this claim</a></li><li><a href="https://www.google.com/search?q=${q}+WHO+OR+Ministry+of+Health" target="_blank" rel="noopener">Search this claim with WHO / Ministry sources</a></li></ul><p><em>Limitation: this static demo cannot fetch live web results or automatically validate arbitrary claims. The status is deliberately “not verified,” not a made-up verdict.</em></p>`:`<strong>स्थिति: इस प्रोटोटाइप द्वारा सत्यापित नहीं।</strong><p>सटीक दावे के लिए प्रमाण देखे बिना मैं इसे सही या गलत नहीं कहूँगा/कहूँगी। नीचे दिए स्रोत खोलें, वही दावा खोजें, तारीख और अध्ययन में शामिल लोगों को देखें तथा स्वतंत्र प्रमाणों की तुलना करें। यदि स्रोतों में मतभेद हो या वे दावे की सीधे जाँच न करते हों, तो इसे अनिश्चित मानें और पुष्टि किए हुए तथ्य की तरह साझा न करें।</p><p><strong>दावा:</strong> “${escapeHTML(claim)}”</p><p><strong>विश्वसनीय शुरुआती स्रोत और इस दावे की खोज:</strong></p><ul><li><a href="https://www.who.int/health-topics" target="_blank" rel="noopener">WHO स्वास्थ्य विषय</a></li><li><a href="https://mohfw.gov.in/" target="_blank" rel="noopener">भारत का स्वास्थ्य एवं परिवार कल्याण मंत्रालय</a></li><li><a href="https://medlineplus.gov/" target="_blank" rel="noopener">MedlinePlus</a></li><li><a href="https://pubmed.ncbi.nlm.nih.gov/?term=${q}" target="_blank" rel="noopener">PubMed पर इस दावे की खोज</a></li><li><a href="https://www.google.com/search?q=${q}+WHO+OR+Ministry+of+Health" target="_blank" rel="noopener">WHO / मंत्रालय स्रोतों के साथ खोजें</a></li></ul><p><em>सीमा: यह स्थिर डेमो लाइव वेब परिणाम नहीं ला सकता और हर नए दावे को स्वतः सत्यापित नहीं कर सकता। इसलिए बिना प्रमाण के फैसला देने के बजाय “सत्यापित नहीं” दिखाता है।</em></p>`;
+ }
+}
+document.getElementById("quizForm").addEventListener("submit",e=>{
+ e.preventDefault();
+ const answers={q1:"b",q2:"c",q3:"a"};
+ let score=0;
+ for(const q in answers){if(document.querySelector(`input[name="${q}"]:checked`)?.value===answers[q])score++}
+ document.getElementById("quizResult").textContent=language==="en"?`You scored ${score}/3. ${score===3?"Excellent! You chose all the safer answers.":"Review the answers and try again. Reliable sources and timely professional care matter."}`:`आपका स्कोर ${score}/3 है। ${score===3?"बहुत अच्छा! आपने सभी सुरक्षित उत्तर चुने।":"उत्तर फिर देखें और दोबारा प्रयास करें। विश्वसनीय स्रोत और समय पर चिकित्सकीय सहायता महत्वपूर्ण हैं।"}`;
+});
+document.getElementById("menuBtn").addEventListener("click",()=>document.getElementById("navLinks").classList.toggle("open"));
+document.querySelectorAll(".nav-links a").forEach(a=>a.addEventListener("click",()=>document.getElementById("navLinks").classList.remove("open")));
+document.getElementById("langToggle").addEventListener("click",()=>{
+ language=language==="en"?"hi":"en";
+ document.documentElement.lang=language;
+ document.getElementById("langToggle").textContent=language==="en"?"हिंदी":"English";
+ document.querySelectorAll("[data-en]").forEach(el=>{
+  if(el.tagName==="INPUT"||el.tagName==="TEXTAREA"){
+   el.placeholder=el.dataset[language]||el.placeholder;
+  }else if(el.tagName==="OPTION"){
+   el.textContent=el.dataset[language]||el.textContent;
+  }else{
+   el.textContent=el.dataset[language];
+  }
+ });
+ document.querySelectorAll("[data-en-html]").forEach(el=>el.innerHTML=el.dataset[language+"Html"]);
+ document.querySelectorAll("[data-question]").forEach(el=>el.textContent=el.dataset[language]);
+ document.getElementById("chatInput").placeholder=language==="en"?"Ask about a common symptom or health topic…":"सामान्य लक्षण या स्वास्थ्य विषय के बारे में पूछें…";
+});
+</script>
+</body>
+</html>
